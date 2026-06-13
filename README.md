@@ -1,4 +1,7 @@
 # AWS Serverless PPE Detection System
+<img width="1394" height="616" alt="Gemini_Generated_Image_cwl0vycwl0vycwl0" src="https://github.com/user-attachments/assets/47d52b52-f0d1-4a59-b316-4f71bfcbf5bb" />
+
+
 
 An automated, cloud-native validation system designed to enforce safety compliance in high-risk environments such as construction sites, factories, and vital zones. By leveraging a serverless architecture, this solution acts as a preventive digital checkpoint that verifies workers' Personal Protective Equipment (PPE) before they enter the work zone, generating instant compliance reports for the Admin with zero server management and minimal operational cost.
 
@@ -11,7 +14,8 @@ In massive construction sites and industrial factories that house large workforc
 * **Limitations of Manual Supervision:** It is operationally impossible for safety officers to manually inspect every worker at entry points thoroughly without causing massive bottlenecks and delays.
 * **Cost and Complexity Barriers:** Building traditional, heavy monitoring systems requires expensive local infrastructure, high maintenance, and constant human monitoring.
 
-This led to a core engineering challenge: How can we monitor safety compliance in the simplest, most rigid, and most cost-effective way possible?
+This led to a core engineering challenge: 
+How can we monitor safety compliance in the simplest, most rigid, and most cost-effective way possible?
 
 ---
 
@@ -146,7 +150,11 @@ def lambda_handler(event, context):
 The following video demonstrates the entire end-to-end operational flow of the system, showcasing the image upload to Amazon S3, the real-time AWS Lambda execution, and how the computer vision model evaluates worker compliance at the gate.
 
 
-https://github.com/user-attachments/assets/52702861-5333-423b-bc24-639619cf6e01
+
+
+https://github.com/user-attachments/assets/1efd7ecc-0a8c-4a5c-9f92-60d6ebb4ec71
+
+
 
 
 ### 2. Admin Email Notification
@@ -161,7 +169,4 @@ Once an image is processed by the serverless pipeline, an instant notification i
 This project demonstrates that robust industrial safety solutions do not necessitate bloated on-premise hardware deployments. By strategically orchestrating managed services like AWS Serverless and Amazon Rekognition, we can build a highly scalable, preventive gatekeeper that protects human lives and maintains regulatory alignment. By shifting from reactive onsite tracking to a strict entrance filter verified directly by real-time Admin alerts, this solution provides an efficient, low-cost, and maintenance-free blueprint for modern cloud-driven safety automation.
 
 ---
-*Developed in: 06/2026*
-    except Exception as e:
-        print(f"Technical error during analysis pipeline: {str(e)}")
-        return {"status": "error"}
+
