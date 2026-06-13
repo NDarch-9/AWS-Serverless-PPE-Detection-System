@@ -21,11 +21,16 @@ How can we monitor safety compliance in the simplest, most rigid, and most cost-
 
 ## The Solution
 
-The solution is to transform safety verification into a strict, preventive digital checkpoint by connecting entrance validation directly to an AWS cloud infrastructure.
+The solution is to transform safety verification into an automated digital checkpoint by connecting event-driven image analysis directly to an AWS cloud infrastructure.
 
-Instead of reactive monitoring inside the site after a violation occurs, the system operates on a preventive philosophy: checking the worker's compliance via an uploaded image before site entry. This approach fosters self-awareness and accountability among the workforce, as access to the site is strictly conditional upon passing the AI validation check. 
+Instead of manual monitoring inside the site after a violation occurs, the system operates on a proactive reporting philosophy: capturing and evaluating the worker's compliance via an uploaded image at the entry point. This approach fosters awareness and accountability among the workforce, as safety status is evaluated and logged before site entry.
 
-Built using fully managed cloud services, this system achieves proof of concept with minimal development effort. It analyzes the entrance image and dispatches a comprehensive, real-time status report directly to the Admin, allowing them to instantly approve entry or enforce compliance at the gate. It is designed to seamlessly integrate with automated smart cameras or dedicated web/mobile applications in future phases.
+Built using fully managed cloud services, this system achieves proof of concept with minimal development effort. 
+
+It automatically analyzes the entrance image and dispatches a comprehensive, real-time compliance status report directly to the Admin, ensuring the supervisor is instantly aware of safety gear adherence for auditing purposes.
+
+
+It is designed to serve as the foundation for future physical access control integration, allowing it to seamlessly connect with automated smart gates or dedicated web/mobile applications in later phases.
 
 ---
 
@@ -50,8 +55,7 @@ The architecture is engineered entirely on Serverless principles to ensure high 
 1. **Upload:** A picture of the worker is taken at the checkpoint before entering the site and is uploaded to an **Amazon S3** bucket.
 2. **Trigger:** The upload event automatically invokes the **AWS Lambda** function without any human intervention.
 3. **AI Analysis:** The `Lambda` function passes the image object references to **Amazon Rekognition** to execute the specialized PPE detection model.
-4. **Admin Notification:** Based on the AI results, `Lambda` evaluates compliance, compiles an official log, and commands **Amazon SNS** to dispatch an immediate report to the **Admin** outlining whether access should be granted or denied.
-
+4.**Admin Notification:** Based on the AI results, Lambda evaluates compliance, compiles an official log, and commands Amazon SNS to dispatch an immediate report to the Admin detailing the safety compliance status of the processed image.
 ---
 
 ## Architecture Design
@@ -110,16 +114,15 @@ def lambda_handler(event, context):
            
             found_set = set(found_equipment)
            
-            # Enforce rigid safety logic sequence
+          # Evaluate safety logic sequence and compliance status
             if 'HEAD_COVER' not in found_set:
-                status = "CRITICAL: Worker is missing a safety helmet (HEAD_COVER). Access Denied."
+                status = "NON-COMPLIANT: Worker is missing a safety helmet (HEAD_COVER). Immediate supervisor attention required."
             elif 'HAND_COVER' not in found_set:
-                status = "WARNING: Helmet detected, but safety gloves (HAND_COVER) are missing."
+                status = "PARTIAL COMPLIANCE: Helmet detected, but safety gloves (HAND_COVER) are missing."
             elif 'FACE_COVER' not in found_set:
-                status = "WARNING: Helmet and gloves detected, but face protection (FACE_COVER) is missing."
+                status = "PARTIAL COMPLIANCE: Helmet and gloves detected, but face protection (FACE_COVER) is missing."
             else:
-                status = "COMPLIANT: Worker is wearing all required PPE (Helmet, Gloves, Face Cover). Access Approved."
-           
+                status = "FULLY COMPLIANT: Worker is wearing all required PPE (Helmet, Gloves, Face Cover)."
             all_results.append(status)
 
         # Formulate the final administrative summary log
