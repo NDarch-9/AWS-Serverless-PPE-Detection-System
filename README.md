@@ -44,8 +44,7 @@ The architecture is engineered entirely on Serverless principles to ensure high 
 
 
 
-<img width="1684" height="1844" alt="image" src="https://github.com/user-attachments/assets/0d0cdcc8-a574-4caa-885b-bae6fda66135" />
-
+<img width="1692" height="1852" alt="image" src="https://github.com/user-attachments/assets/1cee149f-3c77-4d1c-a9d7-c657e9fb9455" />
 
 ### Workflow Description:
 1. **Upload:** A picture of the worker is taken at the checkpoint before entering the site and is uploaded to an **Amazon S3** bucket.
@@ -59,10 +58,8 @@ The architecture is engineered entirely on Serverless principles to ensure high 
 
 <img width="2428" height="1650" alt="Blank diagram (4)" src="https://github.com/user-attachments/assets/fab2a908-1a38-4b8f-a864-2dc4c599ae05" />
 
-
-The engineering design focuses on maximum efficiency and architectural cleanliness:
-* **Decoupled Backend Focus:** By eliminating the initial need for a complex frontend interface, the project prioritizes robust backend synchronization and cloud resource utilization. This drastically reduces development time while delivering an enterprise-ready API layer that admins can monitor via direct notifications.
-* **Future-Proof Scalability:** The current serverless pipeline is natively designed to scale out. It can seamlessly transition from static gate image uploads to live, continuous video streaming analysis (via services like Amazon Kinesis) in future updates without rewriting the core infrastructure.
+Architectural breakdown of the serverless event-driven pipeline. 
+The workflow traces the lifecycle of an entry check, showcasing tight integration between storage, compute, AI analysis, and communication layers.
 
 ---
 ## AWS IAM Role Configuration for Safety Check Lambda
@@ -148,6 +145,15 @@ def lambda_handler(event, context):
 1. **Confidence Threshold:** The model enforces a strict confidence bar (Confidence >= 65%) to ensure high reliability in object detection and prevent false compliance logs from reaching the Admin.
 2. **Hierarchical Severity:** The code prioritizes life-safety items, immediately flagging missing head protection as a critical violation, while generating tailored warning strings for other gear items to facilitate quick corrections at the gate.
 
+
+
+### 2. Admin Email Notification
+Once an image is processed by the serverless pipeline, an instant notification is generated. Below is a screenshot of the official compliance report delivered directly to the Admin's inbox via Amazon SNS, providing explicit details about the worker's protective gear status.
+
+<img width="936" height="191" alt="Screenshot (487)" src="https://github.com/user-attachments/assets/1a67fcc3-6441-46df-b09d-dc394d705dc3" />
+
+<img width="1337" height="351" alt="Screenshot (487)" src="https://github.com/user-attachments/assets/518785e4-8078-400b-b1a9-141049d5c8e3" />
+
 ---
 
 ## The Result
@@ -163,10 +169,7 @@ https://github.com/user-attachments/assets/1efd7ecc-0a8c-4a5c-9f92-60d6ebb4ec71
 
 
 
-### 2. Admin Email Notification
-Once an image is processed by the serverless pipeline, an instant notification is generated. Below is a screenshot of the official compliance report delivered directly to the Admin's inbox via Amazon SNS, providing explicit details about the worker's protective gear status.
 
-<img width="1511" height="691" alt="Screenshot (477)" src="https://github.com/user-attachments/assets/9bd65029-c6aa-44d6-84a8-0f481b0c7c7c" />
 
 
 ---
