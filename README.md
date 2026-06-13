@@ -65,7 +65,13 @@ The engineering design focuses on maximum efficiency and architectural cleanline
 * **Future-Proof Scalability:** The current serverless pipeline is natively designed to scale out. It can seamlessly transition from static gate image uploads to live, continuous video streaming analysis (via services like Amazon Kinesis) in future updates without rewriting the core infrastructure.
 
 ---
+## AWS IAM Role Configuration for Safety Check Lambda
 
+<img width="1854" height="604" alt="Screenshot (474)" src="https://github.com/user-attachments/assets/9124b155-a020-4487-8628-f442bf24d8b0" />
+
+AWS IAM execution role (SafetyCheckFunction-role) with attached policies for Amazon Rekognition, S3, and SNS, ensuring secure, granular access control across serverless components
+
+---
 ## Lambda Source Code
 
 The following clean, modular **Python** script runs within the AWS Lambda environment utilizing the `Boto3` SDK to handle the end-to-end evaluation and admin reporting:
@@ -160,7 +166,8 @@ https://github.com/user-attachments/assets/1efd7ecc-0a8c-4a5c-9f92-60d6ebb4ec71
 ### 2. Admin Email Notification
 Once an image is processed by the serverless pipeline, an instant notification is generated. Below is a screenshot of the official compliance report delivered directly to the Admin's inbox via Amazon SNS, providing explicit details about the worker's protective gear status.
 
-![Admin Email Notification](YOUR_ADMIN_EMAIL_IMAGE_PATH_HERE)
+<img width="1511" height="691" alt="Screenshot (477)" src="https://github.com/user-attachments/assets/9bd65029-c6aa-44d6-84a8-0f481b0c7c7c" />
+
 
 ---
 
